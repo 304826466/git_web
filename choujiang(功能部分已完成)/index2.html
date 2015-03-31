@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+</head>
+
+<body style="width:500px;height:500px; margin:0px auto;">
+<div style="width:200px; height:200px;"><img width="200" height="200" id="rotatebg" src="2.png" /></div>
+<input style="width:200px; height:50px;" id="needle" type="button" value="star" />
+</body>
+<script type="text/javascript">
+var Flag = false;
+function setDegree($obj,deg){  
+    $obj.css({
+        'transform'			:'rotate('+deg+'deg)',
+        '-ms-transform'		:'rotate('+deg+'deg)',  
+        '-moz-transform'	:'rotate('+deg+'deg)',
+        '-webkit-transform'	:'rotate('+deg+'deg)', 
+		'-o-transform'		:'rotate('+deg+'deg)',
+        '-moz-transform'	:'rotate('+deg+'deg)'  
+    });  
+}
+  
+function rotate(){  
+    var $tar = $('#rotatebg'),  
+    i,  
+    cnt = 100,                          
+    total = 0,                            
+    ratio = [],                          
+    offset = 1,     				
+    amount = 18 - ( 0.225*offset ),     
+    result = 1234567; 			
+    ratio[1] = [0.2, 0.4, 0.6, 0.8, 1, 1, 1.2, 1.4, 1.6, 1.8];  
+    ratio[2] = [1.8, 1.6, 1.4, 1.2, 1, 1, 0.8, 0.6, 0.4, 0.2];  
+    for(i=0;i<200;i++){  
+        setTimeout(function(){  
+                   
+            var deg = amount*( ratio[ String(cnt).substr(0,1) ][ String(cnt).substr(1,1) ] );  
+            setDegree($tar,deg+total);
+            total += deg;
+            cnt++;
+        },i*50);  
+    }  
+    setTimeout(function(){  
+            //alert( result );
+			Flag = false;
+    },200*50+500);  
+}  
+
+$(function(){  
+    $("#needle").click(function(){
+        if(!Flag){  
+            Flag = true;  
+            rotate();  
+        }  
+    });  
+});  
+</script>
+</html>
